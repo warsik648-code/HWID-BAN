@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../config/site';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+];
+
+const description =
+  'What HWIDBAN.ORG publishes, how the guides relate to the HWID spoofer, and how to reach the site.';
+---
+
+<BaseLayout title="About HWID Bans" description={description} path="/about" breadcrumbs={crumbs}>
+  <article class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">About</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">About HWID bans</h1>
+    </header>
+    <div class="article-body mt-8">
+      <p>
+        HWIDBAN.ORG publishes plain-language guides to hardware ID bans and offers access to an
+        HWID spoofer for players whose penalty follows the computer.
+      </p>
+      <p>
+        The spoofer is mainly for hardware bans in the games listed on the
+        <a href="/games">games page</a>. It is offered as undetected, which means it is not
+        currently flagged on its own by the anti-cheat on those titles. That is a current product
+        status. Anti-cheat updates can change it.
+      </p>
+      <p>
+        We do not file ban appeals, recover locked profiles, or give legal advice. Most publishers
+        forbid ban evasion in their terms, and breaking those terms can lead to further penalties.
+      </p>
+      <p>
+        Questions about the site go to
+        <a href={`mailto:${site.email}`}>{site.email}</a>. Purchase problems belong to the checkout
+        that Buy Now opens. If that button still brings you to the contact page, the product
+        link has not been connected yet.
+      </p>
+    </div>
+  </article>
+  <CtaBand />
+</BaseLayout>

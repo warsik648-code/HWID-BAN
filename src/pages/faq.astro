@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqs } from '../data/faqs';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'FAQ', path: '/faq' },
+];
+
+const description =
+  'Answers on HWID bans, new accounts, VPNs, HWID spoofers, and what undetected does and does not mean.';
+---
+
+<BaseLayout
+  title="HWID Ban FAQ"
+  description={description}
+  path="/faq"
+  breadcrumbs={crumbs}
+  faqs={faqs}
+>
+  <div class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">FAQ</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">HWID ban FAQ</h1>
+      <p class="mt-5 text-xl text-muted">
+        Short answers first. The guides go further when a one-paragraph reply is not enough.
+      </p>
+    </header>
+    <div class="mt-12 divide-y divide-line border-y border-line">
+      {
+        faqs.map((faq) => (
+          <section id={faq.id} class="scroll-mt-8 py-8" aria-labelledby={`${faq.id}-q`}>
+            <h2 id={`${faq.id}-q`} class="max-w-3xl text-3xl">
+              {faq.question}
+            </h2>
+            <p class="mt-4 max-w-3xl text-lg leading-relaxed text-muted">{faq.answer}</p>
+          </section>
+        ))
+      }
+    </div>
+    <p class="mt-8 max-w-3xl">
+      More context sits in the
+      <a class="text-accent" href="/guides/what-is-an-hwid-ban">HWID ban guide</a>,
+      <a class="text-accent" href="/guides/how-hwid-bans-work">how bans work</a>, and the
+      <a class="text-accent" href="/games">game notes</a>.
+    </p>
+  </div>
+  <CtaBand />
+</BaseLayout>

@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductLink from '../components/ProductLink.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SpooferDemo from '../components/SpooferDemo.astro';
+import PromoVideo from '../components/PromoVideo.astro';
+import { games } from '../data/games';
+import { faqs } from '../data/faqs';
+import promoVideo from '../../mEDIA/0518(1).mp4';
+
+const description =
+  'Got an HWID ban for cheating, and a new account still gets kicked on the same PC? That is a hardware ID ban. This spoofer is for that. Offered as undetected.';
+
+const shopFaqs = faqs.filter((faq) =>
+  ['what-is-a-spoofer', 'undetected', 'which-games', 'where-to-buy'].includes(faq.id),
+);
+---
+
+<BaseLayout
+  title="Got an HWID Ban for Cheating? | HWIDBAN.ORG"
+  description={description}
+  path="/"
+  faqs={shopFaqs}
+  video={{
+    name: 'Banned Again?',
+    description: 'A short clip that opens on a permanent suspension notice.',
+    thumbnailPath: '/hwid-promo-poster.jpg',
+    uploadDate: '2026-05-18T07:11:50Z',
+    duration: 'PT1M',
+    contentPath: promoVideo,
+  }}
+>
+  <div class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+  <div class="shell grid gap-12 pt-10 pb-14 sm:pt-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.75fr)] lg:items-end lg:pt-20 lg:pb-20">
+    <div>
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Hardware ban</p>
+      <h1 class="mt-4 max-w-4xl text-[clamp(2.35rem,7vw,5.1rem)]">Got an HWID ban for cheating?</h1>
+      <p class="mt-6 max-w-2xl text-xl leading-relaxed text-muted sm:text-2xl">
+        New account. Same PC. Still kicked. That is a <a class="text-accent" href="/guides/what-is-an-hwid-ban">hardware ID ban</a>, not another locked login. The spoofer here is for that, and it is offered as undetected on the games below.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <ProductLink>Buy Now</ProductLink>
+        <a class="btn btn-secondary" href="/guides/what-is-an-hwid-ban">Learn About HWID Bans</a>
+      </div>
+    </div>
+    <SpooferDemo />
+  </div>
+  </div>
+
+  <section class="border-t border-line" data-reveal aria-labelledby="promo-heading">
+    <div class="shell py-16 lg:py-24">
+      <h2 id="promo-heading" class="text-4xl sm:text-5xl">Banned Again?</h2>
+      <PromoVideo />
+    </div>
+  </section>
+
+  <section class="border-t border-line" data-reveal aria-labelledby="included-heading">
+    <div class="shell max-w-3xl py-16 lg:py-24">
+      <h2 id="included-heading" class="text-4xl sm:text-5xl">What the spoofer does</h2>
+      <ul class="mt-8 space-y-4 border-t border-line pt-6">
+        <li class="border-b border-line pb-4">
+          Shows the game a different hardware ID than the one stored with the ban.
+        </li>
+        <li class="border-b border-line pb-4">
+          Built for an HWID ban on the same PC.
+        </li>
+        <li class="border-b border-line pb-4">
+          Made for the PC games on this page, and offered as undetected on those titles.
+        </li>
+        <li>Buy Now opens checkout. This page does not take payment.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-t border-line" id="games" data-reveal aria-labelledby="games-heading">
+    <div class="shell py-16 lg:py-24">
+      <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <div>
+          <h2 id="games-heading" class="max-w-3xl text-4xl sm:text-5xl">Games it covers</h2>
+          <p class="mt-4 max-w-2xl text-lg text-muted">
+            Hardware bans in these games are what the spoofer is for. Each title has its own page.
+          </p>
+        </div>
+        <ProductLink>Get HWID Spoofer</ProductLink>
+      </div>
+      <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          games.map((game) => (
+            <li>
+              <a href={`/games/${game.slug}`} class="game-link text-lg">
+                {game.name} HWID ban
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 max-w-2xl text-muted">
+        Open a game for the HWID notes and the full spoofer coverage.
+        <a class="text-accent" href="/games">All games</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="border-t border-line" data-reveal aria-labelledby="faq-heading">
+    <div class="shell py-16 lg:py-24">
+      <h2 id="faq-heading" class="text-4xl sm:text-5xl">Straight answers</h2>
+      <div class="mt-8 divide-y divide-line border-y border-line">
+        {
+          shopFaqs.map((faq) => (
+            <article class="py-6">
+              <h3 class="text-2xl">
+                <a href={`/faq#${faq.id}`} class="text-ink no-underline hover:text-accent">
+                  {faq.question}
+                </a>
+              </h3>
+              <p class="mt-3 max-w-3xl text-muted">{faq.answer}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Ready to get back in the game?"
+    body="Learn how a hardware ban works, or get access to the spoofer."
+    label="Buy Now"
+    secondaryHref="/guides"
+    secondaryLabel="Read the Guides"
+  />
+</BaseLayout>

@@ -1,0 +1,279 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import UgcLink from '../components/UgcLink.astro';
+
+const path = '/ugc';
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'UGC Unbanner', path },
+];
+
+const description =
+  'Restore banned Valorant accounts with the UGC Unbanner. No password required. HWID bans, Vanguard detections, and permanent suspensions are covered.';
+
+const steps = [
+  { n: '1', title: 'Account Info' },
+  { n: '2', title: 'Purchase' },
+  { n: '3', title: 'Unban' },
+];
+
+const how = [
+  {
+    n: '1',
+    title: 'Submit your account info',
+    body: 'Fill in your Riot ID, email, region, and ban details — no password ever required.',
+  },
+  {
+    n: '2',
+    title: 'We process your request',
+    body: "Our UGC utility locates your account in Riot's database and begins the removal process.",
+  },
+  {
+    n: '3',
+    title: 'Flags get cleared',
+    body: 'All ban markers, HWID flags, and security alerts are permanently removed from your profile.',
+  },
+  {
+    n: '4',
+    title: 'Account restored',
+    body: 'You receive confirmation within 6–24 hours and can log back in as normal.',
+  },
+];
+
+const bans = [
+  'HWID Bans',
+  'Account Bans',
+  'Vanguard Bans',
+  'Permanent Bans',
+  'IP Bans',
+  'Temporary Bans',
+];
+
+const reasons = [
+  {
+    title: 'Fast Processing',
+    body: 'Most accounts restored within 6–24 hours after purchase.',
+  },
+  {
+    title: 'Safe & Secure',
+    body: 'No password required — completely secure from start to finish.',
+  },
+  {
+    title: '94.7% Success Rate',
+    body: 'Thousands of accounts successfully restored and counting.',
+  },
+];
+
+const faqs = [
+  {
+    id: 'how-long',
+    question: 'How long does the unban process take?',
+    answer:
+      "Most accounts are unbanned within 6–24 hours after purchase. You'll receive email notifications throughout the process.",
+  },
+  {
+    id: 'info-safe',
+    question: 'Is my account information safe?',
+    answer:
+      "Absolutely. We don't require passwords or login credentials — only basic account identifiers to locate your profile in Riot's database.",
+  },
+  {
+    id: 'if-it-fails',
+    question: "What if the unban doesn't work?",
+    answer:
+      "Our process has an extremely high success rate. If for any reason your account isn't restored, reach out to our support team on Discord.",
+  },
+  {
+    id: 'banned-again',
+    question: 'Can I get banned again after using your service?',
+    answer:
+      'Our unban process removes all ban flags. However, if you continue without proper protection, re-detection is possible. We recommend pairing this with our HWID Spoofer.',
+  },
+];
+---
+
+<BaseLayout
+  title="Valorant UGC Unbanner"
+  description={description}
+  path={path}
+  breadcrumbs={crumbs}
+  faqs={faqs}
+>
+  <article class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Account unban</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">UGC Unbanner</h1>
+      <p class="mt-5 text-xl text-muted">
+        Restore banned Valorant accounts using our advanced UGC manipulation utility — no credentials required.
+      </p>
+    </header>
+
+    <ol class="mt-8 flex flex-wrap gap-3">
+      {
+        steps.map((step) => (
+          <li class="panel flex items-center gap-3 px-4 py-3">
+            <span class="font-display text-accent">{step.n}</span>
+            <span>{step.title}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <section class="mt-14 max-w-3xl" aria-labelledby="what-heading">
+      <h2 id="what-heading" class="text-4xl">What is the UGC Unbanner?</h2>
+      <div class="article-body">
+        <p>
+          Our UGC Utility exploits weaknesses in Riot's User Generated Content system to permanently remove ban flags from your account — including HWID bans, Vanguard detections, and permanent suspensions.
+        </p>
+        <p>
+          No passwords. No account access. Just your Riot ID and a few details — we handle the rest server-side.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-14" aria-labelledby="how-heading">
+      <h2 id="how-heading" class="text-4xl">How It Works</h2>
+      <ol class="mt-8 grid gap-4 sm:grid-cols-2">
+        {
+          how.map((step) => (
+            <li class="panel p-5">
+              <p class="font-display text-accent">{step.n}</p>
+              <h3 class="mt-2 text-2xl">{step.title}</h3>
+              <p class="mt-3 text-muted">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mt-14" aria-labelledby="bans-heading">
+      <h2 id="bans-heading" class="text-4xl">Compatible Ban Types</h2>
+      <p class="mt-4 text-lg text-muted">All of the following are covered under a single purchase</p>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {bans.map((ban) => <li class="panel px-4 py-3">✓ {ban}</li>)}
+      </ul>
+    </section>
+
+    <section class="mt-14" aria-labelledby="info-heading">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.7fr)]">
+        <div>
+          <h2 id="info-heading" class="text-4xl">Account Information</h2>
+          <p class="mt-3 text-lg text-accent">No passwords required — ever</p>
+          <p class="mt-3 max-w-xl text-muted">
+            We only require basic account information. No passwords required — our UGC utility operates entirely server-side.
+          </p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <label class="block sm:col-span-2">
+              <span class="text-sm text-muted">Valorant Username</span>
+              <input class="field" name="riot-id" autocomplete="off" placeholder="YourRiotID#TAG" />
+            </label>
+            <label class="block">
+              <span class="text-sm text-muted">Email (linked)</span>
+              <input class="field" type="email" name="email" autocomplete="email" placeholder="your@email.com" />
+            </label>
+            <label class="block">
+              <span class="text-sm text-muted">Account Level</span>
+              <input class="field" name="level" inputmode="numeric" placeholder="e.g. 120" />
+            </label>
+            <label class="block">
+              <span class="text-sm text-muted">Region</span>
+              <select class="field" name="region">
+                <option>North America</option>
+                <option>Europe</option>
+                <option>Asia Pacific</option>
+                <option>Korea</option>
+                <option>Brazil</option>
+                <option>Latin America</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="text-sm text-muted">Ban Date (approximate)</span>
+              <input class="field" name="ban-date" placeholder="dd.mm.yyyy" />
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="text-sm text-muted">Ban Reason</span>
+              <input class="field" name="ban-reason" placeholder="e.g. HWID ban, Vanguard detection..." />
+            </label>
+          </div>
+          <p class="mt-6">
+            <UgcLink>Continue to Purchase</UgcLink>
+          </p>
+        </div>
+        <dl class="panel h-fit px-5 sm:px-6">
+          <div class="grid gap-1 border-b border-line py-4">
+            <dt class="text-sm text-muted">Service</dt>
+            <dd>Valorant UGC Unban</dd>
+          </div>
+          <div class="grid gap-1 border-b border-line py-4">
+            <dt class="text-sm text-muted">Processing Time</dt>
+            <dd>6–24 Hours</dd>
+          </div>
+          <div class="grid gap-1 py-4">
+            <dt class="text-sm text-muted">Status</dt>
+            <dd>Ready to process</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="mt-14" aria-labelledby="why-heading">
+      <h2 id="why-heading" class="text-4xl">Why Choose Us</h2>
+      <ul class="mt-8 grid gap-4 lg:grid-cols-3">
+        {
+          reasons.map((reason) => (
+            <li class="panel p-5">
+              <h3 class="text-2xl">{reason.title}</h3>
+              <p class="mt-3 text-muted">{reason.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-14" aria-labelledby="ugc-faq-heading">
+      <h2 id="ugc-faq-heading" class="text-4xl">Frequently Asked Questions</h2>
+      <p class="mt-4 text-lg text-muted">Everything you need to know before purchasing</p>
+      <div class="mt-6 divide-y divide-line border-y border-line">
+        {
+          faqs.map((faq) => (
+            <article id={faq.id} class="py-6">
+              <h3 class="text-2xl">{faq.question}</h3>
+              <p class="mt-3 max-w-3xl text-muted">
+                {
+                  faq.id === 'banned-again' ? (
+                    <>
+                      Our unban process removes all ban flags. However, if you continue without proper protection, re-detection is possible. We recommend pairing this with our{' '}
+                      <a class="text-accent" href="/">HWID Spoofer</a>.
+                    </>
+                  ) : (
+                    faq.answer
+                  )
+                }
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .field {
+    display: block;
+    width: 100%;
+    margin-top: 0.4rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background: var(--color-raised);
+    color: var(--color-ink);
+    padding: 0.75rem 0.9rem;
+    font: inherit;
+  }
+
+  .field::placeholder {
+    color: var(--color-muted);
+  }
+</style>

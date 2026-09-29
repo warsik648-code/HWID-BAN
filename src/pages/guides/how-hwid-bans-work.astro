@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site } from '../../config/site';
+
+const path = '/guides/how-hwid-bans-work';
+const title = 'How HWID Bans Work';
+const description =
+  'The general model behind a hardware ban: device identifiers, stored penalties, and why a new account often changes nothing.';
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Guides', path: '/guides' },
+  { name: title, path },
+];
+---
+
+<BaseLayout title={title} description={description} path={path} breadcrumbs={crumbs} article>
+  <article class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Guide</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">{title}</h1>
+      <p class="mt-5 text-xl text-muted">
+        A hardware ban is a stored match between a penalty and a fingerprint of the PC. This page
+        stays with that model. It does not pretend to know unpublished anti-cheat formulas.
+      </p>
+      <p class="mt-4 text-sm text-muted">Updated {site.updatedLabel}</p>
+    </header>
+
+    <div class="article-body mt-10">
+      <h2>A useful model</h2>
+      <p>
+        Think of three steps. Something on the PC collects identifiers. Something on the server
+        stores a ban against a fingerprint derived from them. A later session is checked against
+        that record. If the machine still looks like the banned fingerprint, the session can be
+        refused even though the account is new.
+      </p>
+      <p>
+        That is the whole idea behind an <a href="/guides/what-is-an-hwid-ban">HWID ban</a>. The
+        interesting limits sit around the edges: which identifiers, how stable they are, and how
+        often the publisher changes the check. Those details are not public, they differ by game,
+        and they move. Anyone selling a permanent, universal method is guessing.
+      </p>
+
+      <h2>What a hardware ID is made from</h2>
+      <p>
+        In ordinary discussion, a hardware ID draws on components and firmware rather than on your
+        password or your email. Examples that come up repeatedly are storage devices, the
+        motherboard, the network adapter’s hardware address, and system firmware values. Graphics
+        hardware and other peripherals are mentioned in some cases. A game may use several of these
+        and ignore others.
+      </p>
+      <p>
+        Two consequences follow. First, replacing one part, or editing one setting, often leaves
+        the rest of the fingerprint intact. Second, a reinstall of Windows does not automatically
+        create a new hardware ID, because many of the inputs live below the operating system’s
+        user accounts.
+      </p>
+
+      <h2>How a ban gets stored</h2>
+      <p>
+        The ban record is not a sticker on your PC that you can peel off locally. The publisher
+        keeps it. Your machine presents identifiers at launch. Their servers decide whether that
+        presentation matches a banned record. Cleaning game files, making a new launcher account,
+        or switching Wi-Fi networks does not delete their record.
+      </p>
+      <p>
+        A hardware ID ban is stored against the machine. The
+        <a href="/games">game pages</a> describe how that shows up in each title.
+      </p>
+
+      <h2>Why a new account often fails</h2>
+      <p>
+        A new account changes the login. It does not change the disk, the board, or the other
+        identifiers the fingerprint was built from. If the check is really on the hardware ID, the
+        new account walks into the same comparison and fails it.
+      </p>
+      <p>
+        Failure can be immediate, or it can show up after a match, a delay, or a later security
+        sweep. Speed is not proof by itself. A better comparison is whether a trusted older account
+        on that same PC is also blocked, and whether the new account works on a different PC. Those
+        two results point in opposite directions.
+      </p>
+
+      <h2>Why changing one identifier often fails</h2>
+      <p>
+        People try a new network adapter address, a VPN, or a single registry edit because those
+        are easy to find. None of those present a full new hardware profile. A single identifier
+        change leaves every other signal alone. If the fingerprint uses more than one signal, the
+        machine can still match.
+      </p>
+      <p>
+        There is a second problem. Anti-cheat updates add, drop, and reweight signals. A change
+        that lined up with last year’s check can be irrelevant after a patch, or it can itself look
+        inconsistent enough to draw attention. That is a reason to be skeptical of step-by-step
+        lists copied from old threads.
+      </p>
+
+      <h2>What “undetected” refers to</h2>
+      <p>
+        An HWID spoofer presents a different hardware ID than the one stored with the ban. Players
+        look for that when the account swap has already failed. “Undetected” describes a narrower
+        claim: the spoofer is not currently flagged, on its own, by the anti-cheat on the games it
+        supports. It does not mean the publisher has approved it. It does not mean a future update
+        will ignore it. It does not mean every existing ban will open.
+      </p>
+      <p>
+        The product linked from this site is positioned that way for the supported titles, mainly
+        where hardware bans are the problem being solved. Detection status belongs on the product
+        page, because it can change without this article changing.
+      </p>
+
+      <h2>What this guide does not claim</h2>
+      <p>
+        It does not name the current identifier list for Ricochet, Vanguard, BattlEye, Easy
+        Anti-Cheat, or any other product. Those vendors do not publish it, and a copied list would
+        go stale. It also does not give a procedure for altering identifiers by hand. A partial
+        change is how people make a machine look inconsistent, which is a poor trade for a maybe.
+      </p>
+      <p>
+        If you want the decision in one line: a spoofer is for the ban that follows the computer.
+        Game terms usually forbid that. Further publisher penalties are possible.
+      </p>
+      <RelatedGuides current={path} />
+    </div>
+  </article>
+  <CtaBand />
+</BaseLayout>

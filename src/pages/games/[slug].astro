@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductLink from '../../components/ProductLink.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import SpooferCoverage from '../../components/SpooferCoverage.astro';
+import { games, type Game } from '../../data/games';
+
+export function getStaticPaths() {
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+interface Props {
+  game: Game;
+}
+
+const { game } = Astro.props;
+const path = `/games/${game.slug}`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Games', path: '/games' },
+  { name: game.name, path },
+];
+---
+
+<BaseLayout
+  title={`${game.name} HWID Ban Spoofer`}
+  description={game.description}
+  path={path}
+  breadcrumbs={crumbs}
+>
+  <article class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">HWID ban</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">{game.name} HWID ban</h1>
+      <p class="mt-5 text-xl text-muted">{game.summary}</p>
+    </header>
+    <div class="article-body mt-8">
+      {game.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      <p>
+        <ProductLink>Buy Now</ProductLink>
+      </p>
+    </div>
+    <SpooferCoverage gameName={game.name} />
+    <p class="mt-10">
+      <a class="text-accent" href="/games">All supported games</a>
+    </p>
+  </article>
+  <CtaBand
+    heading={`Get the ${game.name} spoofer`}
+    body={`Buy Now opens checkout for the HWID spoofer used on ${game.name} hardware bans.`}
+    label="Buy Now"
+    secondaryHref="/guides/what-is-an-hwid-ban"
+    secondaryLabel="Learn About HWID Bans"
+  />
+</BaseLayout>

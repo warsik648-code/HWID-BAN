@@ -1,0 +1,14 @@
+{
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.hwidban.org" }],
+      "destination": "https://hwidban.org/:path*",
+      "permanent": true
+    },
+    { "source": "/privacy", "destination": "/", "permanent": true },
+    { "source": "/terms", "destination": "/", "permanent": true },
+    { "source": "/disclaimer", "destination": "/", "permanent": true }
+  ]
+}

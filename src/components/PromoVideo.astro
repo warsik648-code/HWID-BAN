@@ -1,0 +1,63 @@
+---
+import videoSrc from '../../mEDIA/0518(1).mp4';
+---
+
+<div class="promo-frame">
+  <video
+    class="promo-video"
+    controls
+    playsinline
+    preload="none"
+    poster="/hwid-promo-poster.jpg"
+    width="854"
+    height="480"
+    data-src={videoSrc}
+    aria-labelledby="promo-heading"
+  >
+    <p>This browser cannot play the clip. It opens on a permanent suspension notice.</p>
+  </video>
+</div>
+
+<script is:inline>
+  const promo = document.querySelector('.promo-video');
+  if (promo) {
+    const attach = () => {
+      const src = promo.getAttribute('data-src');
+      if (!src || promo.getAttribute('src')) return;
+      promo.setAttribute('src', src);
+    };
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          attach();
+          observer.disconnect();
+        },
+        { rootMargin: '200px 0px' },
+      );
+      observer.observe(promo);
+    } else {
+      attach();
+    }
+  }
+</script>
+
+<style>
+  .promo-frame {
+    margin-top: 1.75rem;
+    max-width: 52rem;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 1rem;
+    background: #100c18;
+  }
+
+  .promo-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #100c18;
+  }
+</style>

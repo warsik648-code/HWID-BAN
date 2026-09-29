@@ -1,0 +1,19 @@
+---
+import { getUgcLink } from '../config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const link = getUgcLink();
+---
+
+<a
+  href={link.href}
+  class:list={['btn btn-primary', className]}
+  {...(link.external ? { target: '_blank', rel: 'sponsored noopener noreferrer' } : {})}
+>
+  <slot />
+  {link.external && <span class="sr-only"> (opens the UGC page)</span>}
+</a>

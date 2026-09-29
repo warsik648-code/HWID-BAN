@@ -1,0 +1,41 @@
+---
+import { footerExplore, site } from '../config/site';
+import ProductLink from './ProductLink.astro';
+---
+
+<footer class="border-t border-line">
+  <div class="shell grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr]">
+    <div>
+      <p class="font-display text-lg tracking-tight">HWIDBAN<span class="text-muted">.ORG</span></p>
+      <p class="mt-4 max-w-sm text-muted">
+        Guides to hardware ID bans, and access to an HWID spoofer when a penalty follows the computer.
+      </p>
+      <div class="mt-5">
+        <ProductLink>Buy Now</ProductLink>
+      </div>
+    </div>
+    <nav aria-label="Footer">
+      <p class="font-display text-sm tracking-wide text-muted uppercase">Explore</p>
+      <ul class="mt-4 space-y-2">
+        {
+          footerExplore.map((item) => (
+            <li>
+              <a href={item.href} class="text-ink no-underline hover:text-accent">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="border-t border-line">
+    <div class="shell py-6 text-sm text-muted">
+      <p>
+        <a class="text-ink no-underline hover:text-accent" href={`mailto:${site.email}`}>{site.email}</a>
+        <span aria-hidden="true"> · </span>
+        <span>© {new Date().getFullYear()} {site.name}</span>
+      </p>
+    </div>
+  </div>
+</footer>

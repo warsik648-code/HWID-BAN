@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ProductLink from '../components/ProductLink.astro';
+import { site, getProductLink } from '../config/site';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Contact', path: '/contact' },
+];
+
+const description =
+  'Contact HWIDBAN.ORG about the guides or the HWID spoofer. Purchase access opens from the Get Access button.';
+
+const product = getProductLink();
+---
+
+<BaseLayout title="Contact" description={description} path="/contact" breadcrumbs={crumbs}>
+  <article class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Contact</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">Write to us, or open checkout.</h1>
+      <p class="mt-5 text-xl text-muted">
+        There is no account system on this site. Email is the way to reach the people behind the
+        guides.
+      </p>
+    </header>
+    <div class="article-body mt-8">
+      <p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p>
+        Include the game, whether a new account on the same PC is also blocked, and the wording of
+        the ban message if you want a pointer toward the right guide. Do not send passwords,
+        payment card numbers, or screenshots of personal documents.
+      </p>
+      <h2>Buying the spoofer</h2>
+      {
+        product.external ? (
+          <p>
+            Get Access opens the product checkout in a new tab. Orders, delivery, and refunds are
+            handled there, not in this inbox.
+          </p>
+        ) : (
+          <p>
+            The product checkout link is not connected yet, so Get Access opens this page. Email
+            {site.email} if you need access in the meantime. Once the link is set, the same button
+            will go straight to checkout.
+          </p>
+        )
+      }
+      <p>
+        <ProductLink>Get Access</ProductLink>
+      </p>
+    </div>
+  </article>
+</BaseLayout>

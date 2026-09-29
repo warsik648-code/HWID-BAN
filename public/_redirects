@@ -1,0 +1,7 @@
+https://www.hwidban.org/* https://hwidban.org/:splat 301!
+http://www.hwidban.org/* https://hwidban.org/:splat 301!
+http://hwidban.org/* https://hwidban.org/:splat 301!
+/*/  /:splat  301
+/privacy / 301
+/terms / 301
+/disclaimer / 301

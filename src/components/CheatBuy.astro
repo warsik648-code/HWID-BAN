@@ -1,0 +1,22 @@
+---
+import { cheatHref } from '../data/cheats';
+
+interface Props {
+  url: string;
+}
+
+const href = cheatHref(Astro.props.url);
+---
+
+{
+  href ? (
+    <a class="btn btn-primary" href={href} target="_blank" rel="sponsored noopener noreferrer">
+      Buy Now
+      <span class="sr-only"> (opens the product page)</span>
+    </a>
+  ) : (
+    <button class="btn btn-primary" type="button" disabled>
+      Buy Now
+    </button>
+  )
+}

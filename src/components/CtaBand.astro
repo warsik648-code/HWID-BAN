@@ -1,0 +1,37 @@
+---
+import ProductLink from './ProductLink.astro';
+
+interface Props {
+  heading?: string;
+  body?: string;
+  label?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+}
+
+const {
+  heading = 'Need access?',
+  body = 'The spoofer is for hardware ID bans on the games covered here. It is offered as undetected.',
+  label = 'Get HWID Spoofer',
+  secondaryHref,
+  secondaryLabel,
+} = Astro.props;
+---
+
+<section class="cta-band" data-reveal aria-labelledby="access-heading">
+  <div class="shell py-16 sm:py-24">
+    <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Access</p>
+    <h2 id="access-heading" class="mt-3 max-w-xl text-4xl sm:text-5xl">{heading}</h2>
+    <p class="mt-4 max-w-xl text-lg text-muted">{body}</p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <ProductLink>{label}</ProductLink>
+      {
+        secondaryHref && secondaryLabel && (
+          <a class="btn btn-secondary" href={secondaryHref}>
+            {secondaryLabel}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

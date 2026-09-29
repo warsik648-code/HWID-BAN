@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { games } from '../../data/games';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Games', path: '/games' },
+];
+
+const description =
+  'HWID spoofer pages for Fortnite, PUBG, Apex, Call of Duty, Tarkov, Valorant, Rust, and the other PC games covered here.';
+---
+
+<BaseLayout title="HWID Bans by Game" description={description} path="/games" breadcrumbs={crumbs}>
+  <div class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Games</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">HWID bans by game.</h1>
+      <p class="mt-5 text-xl text-muted">
+        Each game has its own page: how a hardware ID ban shows up on that title, the spoofer
+        coverage, and answers on HWID spoofing.
+      </p>
+    </header>
+
+    <ul class="mt-12 divide-y divide-line border-y border-line">
+      {
+        games.map((game) => (
+          <li>
+            <a href={`/games/${game.slug}`} class="block py-6 no-underline hover:text-accent">
+              <span class="block text-2xl text-ink">{game.name} HWID ban</span>
+              <span class="mt-2 block max-w-3xl text-muted">{game.summary}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <CtaBand />
+</BaseLayout>

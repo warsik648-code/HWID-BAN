@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CheatBuy from '../../components/CheatBuy.astro';
+import { cheats } from '../../data/cheats';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Cheats', path: '/cheats' },
+];
+
+const description =
+  'PC game cheats for Valorant, Fortnite, Rust, ARC Raiders, Warzone, Wardogs, and The Isle. Each product is listed as undetected.';
+---
+
+<BaseLayout title="Undetected PC Game Cheats" description={description} path="/cheats" breadcrumbs={crumbs}>
+  <div class="shell py-12 sm:py-16">
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Shop</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">Undetected PC game cheats</h1>
+      <p class="mt-5 text-xl text-muted">Seven PC titles. Open a card for the product page.</p>
+    </header>
+    <ul class="cheat-grid">
+      {
+        cheats.map((cheat) => (
+          <li class="panel cheat-card">
+            <a class="cheat-open" href={`/cheats/${cheat.slug}`}>
+              <img
+                src={cheat.image}
+                alt={cheat.imageAlt}
+                width="460"
+                height="215"
+                loading="lazy"
+                decoding="async"
+              />
+              <h2>{cheat.name} Cheats</h2>
+              <p class="cheat-features">{cheat.features.join(' • ')}</p>
+              <p class="cheat-status">Status: Undetected</p>
+            </a>
+            <CheatBuy url={cheat.affiliateUrl} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .cheat-grid {
+    display: grid;
+    gap: 1rem;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cheat-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 0 1rem;
+  }
+
+  .cheat-open {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .cheat-open img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 460 / 215;
+    object-fit: cover;
+    background: #100c18;
+  }
+
+  .cheat-open h2,
+  .cheat-features,
+  .cheat-status {
+    margin: 0.85rem 1rem 0;
+  }
+
+  .cheat-open h2 {
+    font-size: 1.45rem;
+  }
+
+  .cheat-features {
+    color: var(--color-muted);
+  }
+
+  .cheat-status {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    font-weight: 560;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cheat-card :global(.btn) {
+    margin: 1rem 1rem 0;
+    align-self: flex-start;
+  }
+
+  .cheat-card :global(.btn:disabled) {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  @media (min-width: 40rem) {
+    .cheat-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .cheat-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

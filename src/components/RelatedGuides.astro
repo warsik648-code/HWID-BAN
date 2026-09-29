@@ -1,0 +1,26 @@
+---
+import { guides } from '../data/guides';
+
+interface Props {
+  current: string;
+}
+
+const { current } = Astro.props;
+const others = guides.filter((guide) => guide.href !== current);
+---
+
+<aside class="mt-14 border-t border-line pt-8" aria-label="Related guides">
+  <h2 class="text-2xl">Keep reading</h2>
+  <ul class="mt-5 divide-y divide-line border-y border-line">
+    {
+      others.map((guide) => (
+        <li class="py-4">
+          <a href={guide.href} class="font-display text-xl text-ink no-underline hover:text-accent">
+            {guide.title}
+          </a>
+          <p class="mt-1 max-w-xl text-muted">{guide.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</aside>

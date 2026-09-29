@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site } from '../../config/site';
+
+const path = '/guides/what-is-an-hwid-ban';
+const title = 'What Is an HWID Ban?';
+const description =
+  'A plain-language definition of a hardware ID ban: what it blocks, how it shows up in game, and how it differs from a banned account.';
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Guides', path: '/guides' },
+  { name: title, path },
+];
+---
+
+<BaseLayout title={title} description={description} path={path} breadcrumbs={crumbs} article>
+  <article class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Guide</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">{title}</h1>
+      <p class="mt-5 text-xl text-muted">
+        An HWID ban follows the computer. A new account on that same PC can still be stopped, because
+        the penalty is stored against the machine.
+      </p>
+      <p class="mt-4 text-sm text-muted">Updated {site.updatedLabel}</p>
+    </header>
+
+    <div class="article-body mt-10">
+      <h2>The short version</h2>
+      <p>
+        HWID means hardware ID. A hardware ID ban, sometimes called a device ban, is a penalty
+        stored against a fingerprint of the machine rather than only against a username. The game
+        can refuse the computer even when the login has never been punished before.
+      </p>
+      <p>
+        That is why a new login on the same PC often changes nothing. An HWID ban is stored against
+        the machine, so the computer is still refused.
+      </p>
+
+      <h2>Hardware ID, in ordinary language</h2>
+      <p>
+        A hardware ID is not a single serial number printed on the case. Anti-cheat software
+        collects several identifiers from the PC and derives a value, or a set of values, that is
+        stable enough to recognize the machine later. Disks, motherboards, network adapters, and
+        firmware data are the kinds of inputs people discuss. Publishers do not document the exact
+        mix, and they change it.
+      </p>
+      <p>
+        You do not need the formula to use the idea. If the publisher can recognize the computer,
+        it can attach a ban to that recognition. The account is then only one of the things being
+        checked at login.
+      </p>
+
+      <h2>What players notice</h2>
+      <p>The reports that actually match an HWID ban tend to look like this:</p>
+      <ul>
+        <li>The original account is banned, permanently or for a long term.</li>
+        <li>A new account on the same PC is kicked, refused, or banned very quickly.</li>
+        <li>Changing networks, or using a VPN, does not alter the result.</li>
+        <li>The same new account may be able to play on a different computer.</li>
+      </ul>
+      <p>
+        The last point matters. A hardware ban is about the machine that was recorded, not about
+        every device you own. A laptop that never played the game is not automatically included.
+        Consoles are a separate enforcement path. A PC spoofer does not change a PlayStation or
+        Xbox restriction.
+      </p>
+
+      <h2>Account bans that get mistaken for HWID bans</h2>
+      <p>
+        Plenty of messages say “banned” and mean the account. Phone verification, a linked email, a
+        payment method, or a shared household PC can also make a new account fail for reasons that
+        have nothing to do with a hardware ID. Family sharing and a second account created inside
+        the same launcher sometimes inherit a penalty without a device ban existing at all.
+      </p>
+      <p>
+        Before you treat the problem as an HWID ban, read the notice for an end date, try to see
+        whether it names the account, and check whether another trusted account on that PC can
+        still play. The <a href="/games">game notes</a> point out titles where hardware bans are
+        common, and titles where they are not.
+      </p>
+
+      <h2>What an HWID spoofer is</h2>
+      <p>
+        An HWID spoofer is software that presents different hardware identifiers from the ones
+        stored with the ban. People use it when the restriction follows the PC and a new account
+        alone is not enough. It does not appeal the ban, it does not log into the banned account,
+        and it does not move rank, items, or purchases.
+      </p>
+      <p>
+        The spoofer offered here is aimed at hardware bans in the games on that list, and it is
+        offered as undetected. Undetected means it is not currently flagged on its own by the
+        anti-cheat those games use. Anti-cheat updates can change that. It is a status, not a
+        warranty that a specific ban will clear.
+      </p>
+
+      <h2>Before you pay</h2>
+      <p>
+        Buy a spoofer for a hardware ID ban. If you want the general model first, read
+        <a href="/guides/how-hwid-bans-work">how HWID bans work</a>. Most games also forbid
+        ban evasion in their terms. Breaking those terms can bring further penalties from the
+        publisher.
+      </p>
+      <RelatedGuides current={path} />
+    </div>
+  </article>
+  <CtaBand />
+</BaseLayout>

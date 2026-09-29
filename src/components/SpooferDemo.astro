@@ -1,0 +1,178 @@
+<aside class="panel spoof-demo px-5 py-4 sm:px-6" aria-label="One-click spoofer preview">
+  <p class="spoof-title">One-click spoofer</p>
+  <div class="spoof-row">
+    <span id="tpm-name">TPM Bypasser</span>
+    <button
+      type="button"
+      class="spoof-toggle"
+      role="switch"
+      aria-checked="false"
+      aria-labelledby="tpm-name tpm-state"
+      data-spoof="tpm"
+    >
+      <span class="spoof-track" aria-hidden="true"><span class="spoof-thumb"></span></span>
+      <span id="tpm-state" data-state>Off</span>
+    </button>
+  </div>
+  <div class="spoof-row">
+    <span id="mac-name">MAC Address Changer</span>
+    <button
+      type="button"
+      class="spoof-toggle"
+      role="switch"
+      aria-checked="false"
+      aria-labelledby="mac-name mac-state"
+      data-spoof="mac"
+    >
+      <span class="spoof-track" aria-hidden="true"><span class="spoof-thumb"></span></span>
+      <span id="mac-state" data-state>Off</span>
+    </button>
+  </div>
+  <div class="spoof-mac">
+    <p>Current MAC</p>
+    <p class="spoof-mac-value" data-mac aria-live="polite">XX:XX:XX:XX:XX:XX</p>
+  </div>
+</aside>
+
+<script is:inline>
+  const demo = document.querySelector('.spoof-demo');
+  if (demo) {
+    const macValue = demo.querySelector('[data-mac]');
+    const placeholder = 'XX:XX:XX:XX:XX:XX';
+
+    function randomMac() {
+      const bytes = new Uint8Array(6);
+      crypto.getRandomValues(bytes);
+      bytes[0] = (bytes[0] & 0xfe) | 0x02;
+      return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0'))
+        .join(':')
+        .toUpperCase();
+    }
+
+    function setSwitch(button, on) {
+      button.setAttribute('aria-checked', on ? 'true' : 'false');
+      const state = button.querySelector('[data-state]');
+      if (state) state.textContent = on ? 'On' : 'Off';
+    }
+
+    demo.querySelectorAll('[data-spoof]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const on = button.getAttribute('aria-checked') !== 'true';
+        setSwitch(button, on);
+        if (button.getAttribute('data-spoof') !== 'mac' || !macValue) return;
+        macValue.textContent = on ? randomMac() : placeholder;
+        macValue.classList.toggle('is-live', on);
+      });
+    });
+  }
+</script>
+
+<style>
+  .spoof-demo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 15rem;
+  }
+
+  .spoof-title {
+    margin: 0 0 0.35rem;
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 560;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .spoof-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.85rem 0;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .spoof-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.25rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-muted);
+    padding: 0.15rem 0.65rem 0.15rem 0.3rem;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 560;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .spoof-toggle[aria-checked='true'] {
+    border-color: rgba(212, 196, 255, 0.7);
+    background: rgba(91, 33, 182, 0.35);
+    color: var(--color-ink);
+  }
+
+  .spoof-track {
+    display: flex;
+    width: 1.7rem;
+    height: 1rem;
+    align-items: center;
+    border-radius: 999px;
+    background: rgba(58, 48, 84, 0.9);
+    padding: 0.12rem;
+  }
+
+  .spoof-thumb {
+    width: 0.76rem;
+    height: 0.76rem;
+    border-radius: 999px;
+    background: var(--color-muted);
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+
+  .spoof-toggle[aria-checked='true'] .spoof-thumb {
+    transform: translateX(0.7rem);
+    background: var(--color-accent);
+  }
+
+  .spoof-mac {
+    padding-top: 0.85rem;
+  }
+
+  .spoof-mac p {
+    margin: 0;
+  }
+
+  .spoof-mac p:first-child {
+    color: var(--color-muted);
+    font-size: 0.8rem;
+  }
+
+  .spoof-mac-value {
+    min-height: 1.6rem;
+    margin-top: 0.2rem;
+    color: var(--color-muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+
+  .spoof-mac-value.is-live {
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spoof-thumb {
+      transition: none;
+    }
+  }
+</style>

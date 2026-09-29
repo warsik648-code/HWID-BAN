@@ -1,0 +1,21 @@
+---
+import { getProductLink } from '../config/site';
+
+interface Props {
+  class?: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const { variant = 'primary', class: className = '' } = Astro.props;
+const link = getProductLink();
+const styles = variant === 'primary' ? 'btn btn-primary' : 'btn btn-secondary';
+---
+
+<a
+  href={link.href}
+  class:list={[styles, className]}
+  {...(link.external ? { target: '_blank', rel: 'sponsored noopener noreferrer' } : {})}
+>
+  <slot />
+  {link.external && <span class="sr-only"> (opens the product page)</span>}
+</a>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { guides } from '../../data/guides';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Guides', path: '/guides' },
+];
+
+const description =
+  'Guides to hardware ID bans: what an HWID ban is, and how it is enforced in general.';
+---
+
+<BaseLayout title="HWID Ban Guides" description={description} path="/guides" breadcrumbs={crumbs}>
+  <div class="shell py-12 sm:py-16" data-reveal>
+    <Breadcrumbs items={crumbs} />
+    <header class="mt-8 max-w-3xl">
+      <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">Guides</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">Learn the ban before you pay to fix it.</h1>
+      <p class="mt-5 text-xl text-muted">
+        Two explainers cover what a hardware ID ban is and how that kind of ban is enforced. They
+        stay on the HWID case: the penalty that follows the PC.
+      </p>
+    </header>
+    <ol class="mt-12 divide-y divide-line border-y border-line">
+      {
+        guides.map((guide, index) => (
+          <li class="grid gap-3 py-7 sm:grid-cols-[4rem_1fr] sm:gap-6">
+            <p class="font-mono text-sm text-accent">0{index + 1}</p>
+            <div>
+              <h2 class="text-3xl">
+                <a href={guide.href} class="text-ink no-underline hover:text-accent">
+                  {guide.title}
+                </a>
+              </h2>
+              <p class="mt-3 max-w-2xl text-muted">{guide.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+  <CtaBand />
+</BaseLayout>

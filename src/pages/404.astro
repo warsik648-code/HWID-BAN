@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const description = 'That page is not on HWIDBAN.ORG. Use the guides, the game notes, or the FAQ.';
+---
+
+<BaseLayout title="Page not found" description={description} path="/404" noindex>
+  <div class="shell py-20 sm:py-28" data-reveal>
+    <p class="text-xs font-medium tracking-[0.18em] text-accent uppercase">404</p>
+    <h1 class="mt-4 max-w-3xl text-5xl sm:text-6xl">This page is not on the site.</h1>
+    <p class="mt-5 max-w-xl text-xl text-muted">
+      The address may be mistyped, or the page may have moved. The guides and the game notes are
+      the useful places to start.
+    </p>
+    <ul class="mt-8 space-y-2 text-lg">
+      <li><a class="text-accent" href="/">Home</a></li>
+      <li><a class="text-accent" href="/guides">Guides</a></li>
+      <li><a class="text-accent" href="/games">Games</a></li>
+      <li><a class="text-accent" href="/faq">FAQ</a></li>
+      <li><a class="text-accent" href="/contact">Contact</a></li>
+    </ul>
+  </div>
+</BaseLayout>
