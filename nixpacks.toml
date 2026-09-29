@@ -1,0 +1,4 @@
+# Nixpacks only accepts a Node major version. 22 tracks the Node 22
+# release in the Nixpacks archive, which satisfies Astro's >=22.12.0 requirement.
+[variables]
+NIXPACKS_NODE_VERSION = "22"
