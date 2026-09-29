@@ -6,6 +6,9 @@ import { site } from './src/config/site';
 export default defineConfig({
   site: site.url,
   trailingSlash: 'never',
+  server: {
+    allowedHosts: true,
+  },
   // Keep spaces in prose. Minification was gluing words to inline links.
   compressHTML: false,
   integrations: [
