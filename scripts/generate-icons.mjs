@@ -1,8 +1,8 @@
 import { deflateSync } from 'node:zlib';
 import { writeFileSync } from 'node:fs';
 
-const GOLD = [109, 40, 217, 255];
-const INK = [247, 244, 255, 255];
+const TILE = [18, 14, 28, 255];
+const INK = [212, 196, 255, 255];
 const BG = [7, 6, 12, 255];
 
 const glyphs = {
@@ -93,7 +93,7 @@ function fillRect(img, x, y, w, h, color) {
   }
 }
 
-function roundedGold(size, radius) {
+function roundedTile(size, radius) {
   const img = canvas(size, size, BG);
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
@@ -101,9 +101,9 @@ function roundedGold(size, radius) {
       const dy = y < radius ? radius - y : y >= size - radius ? y - (size - radius - 1) : 0;
       if (dx * dx + dy * dy <= radius * radius) {
         const i = (y * size + x) * 4;
-        img.data[i] = GOLD[0];
-        img.data[i + 1] = GOLD[1];
-        img.data[i + 2] = GOLD[2];
+        img.data[i] = TILE[0];
+        img.data[i + 1] = TILE[1];
+        img.data[i + 2] = TILE[2];
         img.data[i + 3] = 255;
       }
     }
@@ -113,12 +113,15 @@ function roundedGold(size, radius) {
 
 function drawH(img) {
   const s = img.width;
-  const m = s * 0.22;
-  const thick = s * 0.12;
-  const mid = (s - thick) / 2;
-  fillRect(img, m, m, thick, s - m * 2, INK);
-  fillRect(img, s - m - thick, m, thick, s - m * 2, INK);
-  fillRect(img, m, mid, s - m * 2, thick, INK);
+  const x = (s * 4) / 32;
+  const y = (s * 4) / 32;
+  const bar = (s * 6) / 32;
+  const stem = (s * 24) / 32;
+  const crossY = (s * 13) / 32;
+  const crossH = (s * 6) / 32;
+  fillRect(img, x, y, bar, stem, INK);
+  fillRect(img, s - x - bar, y, bar, stem, INK);
+  fillRect(img, x, crossY, stem, crossH, INK);
 }
 
 function drawText(img, text, x, y, scale, color, gap = 1) {
@@ -137,13 +140,36 @@ function drawText(img, text, x, y, scale, color, gap = 1) {
   return cursor;
 }
 
-function write(name, img) {
-  writeFileSync(new URL(`../public/${name}`, import.meta.url), encodePng(img.width, img.height, img.data));
+function writeIco(images) {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(images.length, 4);
+  let offset = 6 + images.length * 16;
+  const entries = images.map((image) => {
+    const entry = Buffer.alloc(16);
+    entry[0] = image.width >= 256 ? 0 : image.width;
+    entry[1] = image.height >= 256 ? 0 : image.height;
+    entry.writeUInt16LE(1, 4);
+    entry.writeUInt16LE(32, 6);
+    entry.writeUInt32LE(image.png.length, 8);
+    entry.writeUInt32LE(offset, 12);
+    offset += image.png.length;
+    return entry;
+  });
+  writeFileSync(
+    new URL('../public/favicon.ico', import.meta.url),
+    Buffer.concat([header, ...entries, ...images.map((image) => image.png)]),
+  );
 }
 
-for (const size of [180, 192, 512]) {
-  const icon = roundedGold(size, Math.round(size * 0.18));
+const icoImages = [];
+for (const size of [16, 32, 180, 192, 512]) {
+  const icon = roundedTile(size, Math.round(size * (6 / 32)));
   drawH(icon);
-  const file = size === 180 ? 'apple-touch-icon.png' : `icon-${size}.png`;
-  write(file, icon);
+  const png = encodePng(icon.width, icon.height, icon.data);
+  if (size === 16 || size === 32) icoImages.push({ width: size, height: size, png });
+  const file = size === 180 ? 'apple-touch-icon.png' : size <= 32 ? `favicon-${size}.png` : `icon-${size}.png`;
+  writeFileSync(new URL(`../public/${file}`, import.meta.url), png);
 }
+writeIco(icoImages);
