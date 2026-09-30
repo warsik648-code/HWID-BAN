@@ -34,8 +34,12 @@ function httpsLink(raw: string | undefined): { href: string; external: boolean }
   return { href: '/contact', external: false };
 }
 
+const HWID_PRODUCT_URL = 'https://zadeyo.com/go/ARIS?to=%2Fproducts%2Fhwid-spoofer';
+
 export function getProductLink(): { href: string; external: boolean } {
-  return httpsLink(import.meta.env.PUBLIC_PRODUCT_URL);
+  const configured = httpsLink(import.meta.env.PUBLIC_PRODUCT_URL);
+  if (configured.external) return configured;
+  return { href: HWID_PRODUCT_URL, external: true };
 }
 
 export function getUgcLink(): { href: string; external: boolean } {
